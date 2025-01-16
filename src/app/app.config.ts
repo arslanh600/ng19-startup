@@ -2,10 +2,11 @@ import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } fr
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from "@ngx-translate/core";
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient} from '@angular/common/http';
+import { HttpRequestInterceptor } from './core/interceptors/http-request.interceptor';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -23,7 +24,12 @@ export const appConfig: ApplicationConfig = {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
-    })])
+    })]),
+    {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: HttpRequestInterceptor, 
+      multi: true, 
+    },
   
   ]
 };

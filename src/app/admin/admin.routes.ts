@@ -1,12 +1,13 @@
 import { Routes } from "@angular/router";
 import { AdminComponent } from "./admin.component";
+import { AuthGuard } from "../core/guards/auth.guard";
 
 
 export const routes:Routes = [
     {
         path: '',
         component:AdminComponent,
-        pathMatch:'prefix',
+        canActivateChild:[AuthGuard],
         children:[
             { path:'', pathMatch:'full', redirectTo:'dashboard'},
             {

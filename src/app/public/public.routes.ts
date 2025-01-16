@@ -4,7 +4,6 @@ export const routes:Routes = [
     {
         path: '',
         component:PublicComponent,
-        pathMatch:'prefix',
         children:[
             {
                 path: '',
